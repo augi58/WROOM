@@ -1,0 +1,75 @@
+import {API_BASE_URL, ACCESS_TOKEN} from '../constants';
+
+const request = (options) => {
+    const headers = new Headers({
+        'Content-Type': 'application/json',
+    });
+
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem(ACCESS_TOKEN))
+    }
+
+    const defaults = {headers: headers};
+    options = Object.assign({}, defaults, options);
+
+    return fetch(options.url, options)
+        .then(response =>
+            response.json().then(json => {
+                if (!response.ok) {
+                    return Promise.reject(json);
+                }
+                return json;
+            })
+        );
+};
+
+export function getAllParts() {
+    return request({
+        url: API_BASE_URL + "/inventory/get-all",
+        method: 'GET'
+    });
+}
+
+export function getAllClients() {
+    return request({
+        url: API_BASE_URL + "/user/get-all-clients",
+        method: 'GET'
+    });
+}
+
+export function getAllClientVehicles(clientId) {
+    return request({
+        url: API_BASE_URL + "/vehicle/get-client-vehicles/" + clientId,
+        method: 'GET'
+    });
+}
+
+export function getAllTechnicians() {
+    return request({
+        url: API_BASE_URL + "/user/get-all-technicians",
+        method: 'GET'
+    });
+}
+
+export function getAllJobs() {
+    return request({
+        url: API_BASE_URL + "/job/get-all",
+        method: 'GET'
+    });
+}
+
+export function createUpdateJob(jobDTO) {
+    return request({
+        url: API_BASE_URL + "/job/create-update",
+        method: 'POST',
+        body: JSON.stringify(jobDTO)
+    });
+}
+
+export function changeJobStatus(jobId, newStatus) {
+    return request({
+        url: API_BASE_URL + "/job/update-status/" + jobId + "/" + newStatus,
+        method: 'GET'
+    });
+}
+

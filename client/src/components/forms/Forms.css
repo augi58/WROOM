@@ -1,0 +1,40 @@
+.form .form-container {
+    background-color: #ffffff;
+    margin: 0 auto;
+    border-radius: 10px;
+}
+
+.form .form-title {
+    padding: 24px;
+    font-size: 16px;
+    color: #1f2226;
+}
+
+.form .ant-form-item {
+    padding: 6px 24px;
+    margin-bottom: 0;
+    border-bottom: solid 1px #f0f3fa;
+}
+
+.form .ant-form-extra {
+    color: #969fae;
+    display: block;
+    padding: 3px 3px 5px;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: normal;
+}
+
+.form .ant-form-item-label {
+    text-align: left;
+}
+
+.form .buttons {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form .button-container {
+    max-width: 150px;
+    margin: 0 auto;
+}

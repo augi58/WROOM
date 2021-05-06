@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WroomApplication {
+public class WroomApplication extends ServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WroomApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(WroomApplication.class, args);
+    }
 
 }

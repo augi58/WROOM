@@ -1,0 +1,45 @@
+body {
+    font-family: "robotoLight", sans-serif;
+    font-feature-settings: "tnum";
+    line-height: 1.5;
+    font-size: 14px;
+    color: #1f2226;
+    background-color: #fff;
+}
+
+@font-face {
+    font-family: robotoLight;
+    src: url(../fonts/Roboto-Light.ttf);
+}
+
+.app {
+    background-color: #f0f2f5;
+}
+
+.tabs-widgets-container {
+    background-color: rgb(201, 217, 216);
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-bottom: 50px;
+}
+
+.container {
+    padding-right: 6rem;
+    padding-left: 6rem;
+    margin: 0 auto !important;
+}
+
+.content-layout {
+    width: 100%;
+    min-height: 89vh;
+}
+
+.ant-breadcrumb {
+    font-weight: bold;
+    margin: 15px 10px 10px !important;
+    font-size: 20px !important;
+}
+
+.ant-btn.disabled, .ant-btn[disabled] {
+    cursor: not-allowed !important;
+}

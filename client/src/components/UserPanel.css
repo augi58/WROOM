@@ -1,0 +1,66 @@
+.user-panel .panel-body {
+    width: 200px;
+    border: 2px solid #eaeaea;
+    padding: 0 10px 5px 10px;
+    margin: 10px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.user-panel .logout-button {
+    margin-top: 5px;
+    background: #c9d9d8 linear-gradient(to bottom, #c9d9d8 5%, #bccccb 100%);
+    border-radius: 3px;
+    display: inline-block;
+    cursor: pointer;
+    color: #515151;
+    padding: 2px;
+    text-decoration: none;
+    -webkit-box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 3px 5px 0 rgba(0, 0, 0, 0.75);
+}
+
+.user-panel .logout-button:hover {
+    background: #bccccb linear-gradient(to bottom, #bccccb 5%, #c9d9d8 100%);
+    color: #515151;
+}
+
+.user-panel .logout-text {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.user-panel .user-panel-btn {
+    top: -17px !important;
+    height: 50px !important;
+    border-radius: 25px !important;
+    background: #f7f9fd !important;
+    border: none !important;
+    min-width: 150px;
+}
+
+.user-panel .ml--10 {
+    margin-left: -10px !important;
+}
+
+.user-panel .arrow {
+    padding-top: 14px;
+    color: #b1b1b1 !important;
+    font-size: 10px;
+}
+
+.user-panel .user-panel-btn .name-container {
+    text-align: left;
+}
+
+.user-panel .user-panel-btn .name, .account-name {
+    margin-left: 10px;
+}
+
+.user-panel .user-panel-btn .account-name {
+    font-size: 10px;
+    margin-right: 25px;
+}
