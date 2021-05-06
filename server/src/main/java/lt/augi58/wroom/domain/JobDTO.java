@@ -9,16 +9,17 @@ public class JobDTO {
 
     private Long id;
     private String name;
-    private Long clientId;
-    private Long technicianId;
-    private Long vehicleId;
+    private UserDTO client;
+    private UserDTO technician;
     private JobStatus status;
     private List<Long> parts;
-    private Long labor;
-    private Long rate;
+    private Double labor;
+    private Double rate;
     private Date dueDate;
     private Boolean doorToDoor;
     private String notes;
+    private VehicleDTO vehicle;
+
 
     public Long getId() {
         return id;
@@ -36,28 +37,28 @@ public class JobDTO {
         this.name = name;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public UserDTO getClient() {
+        return client;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setClient(UserDTO client) {
+        this.client = client;
     }
 
-    public Long getTechnicianId() {
-        return technicianId;
+    public UserDTO getTechnician() {
+        return technician;
     }
 
-    public void setTechnicianId(Long technicianId) {
-        this.technicianId = technicianId;
+    public void setTechnician(UserDTO technician) {
+        this.technician = technician;
     }
 
-    public Long getVehicleId() {
-        return vehicleId;
+    public VehicleDTO getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle(VehicleDTO vehicle) {
+        this.vehicle = vehicle;
     }
 
     public JobStatus getStatus() {
@@ -76,16 +77,20 @@ public class JobDTO {
         this.parts = parts;
     }
 
-    public Long getLabor() {
+    public Double getLabor() {
         return labor;
     }
 
-    public void setLabor(Long labor) {
+    public void setLabor(Double labor) {
         this.labor = labor;
     }
 
-    public Long getRate() {
+    public Double getRate() {
         return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
     public Date getDueDate() {
@@ -94,10 +99,6 @@ public class JobDTO {
 
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
-    }
-
-    public void setRate(Long rate) {
-        this.rate = rate;
     }
 
     public Boolean getDoorToDoor() {

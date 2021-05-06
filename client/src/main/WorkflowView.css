@@ -1,6 +1,10 @@
 .workflow-view {
 }
 
+.workflow-view .description-cell span {
+    font-size: 14px;
+}
+
 .workflow-view .react-trello-board {
     padding: 0;
 }

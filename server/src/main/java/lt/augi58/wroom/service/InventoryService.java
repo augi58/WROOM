@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface InventoryService {
 
-    InventoryItemDTO addItem(InventoryItemDTO inventoryItemDTO);
+    InventoryItemDTO createUpdate(InventoryItemDTO inventoryItemDTO);
 
     List<InventoryItemDTO> getAll();
 

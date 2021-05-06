@@ -1,7 +1,11 @@
 package lt.augi58.wroom.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lt.augi58.wroom.domain.JobDTO;
+import lt.augi58.wroom.domain.UserDTO;
+import lt.augi58.wroom.domain.VehicleDTO;
 import lt.augi58.wroom.enums.JobStatus;
+import lt.augi58.wroom.utils.ObjectMapperUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,8 +21,8 @@ public class JobJPA {
     @ManyToOne
     @JsonIgnore
     private UserJPA client;
-    @Column
-    private Long vehicleId;
+    @ManyToOne
+    private VehicleJPA vehicle;
     @ManyToOne
     @JsonIgnore
     private UserJPA technician;
@@ -29,9 +33,9 @@ public class JobJPA {
     @ManyToMany
     private Set<InventoryItemJPA> parts;
     @Column
-    private Long labor;
+    private Double labor;
     @Column
-    private Long rate;
+    private Double rate;
     @Column
     private Date dueDate;
     @Column
@@ -55,12 +59,12 @@ public class JobJPA {
         this.client = client;
     }
 
-    public Long getVehicleId() {
-        return vehicleId;
+    public VehicleJPA getVehicle() {
+        return vehicle;
     }
 
-    public void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setVehicle(VehicleJPA vehicle) {
+        this.vehicle = vehicle;
     }
 
     public UserJPA getTechnician() {
@@ -95,19 +99,19 @@ public class JobJPA {
         this.parts = parts;
     }
 
-    public Long getLabor() {
+    public Double getLabor() {
         return labor;
     }
 
-    public void setLabor(Long labor) {
+    public void setLabor(Double labor) {
         this.labor = labor;
     }
 
-    public Long getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(Long rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
@@ -133,5 +137,22 @@ public class JobJPA {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public JobDTO createDTO() {
+        JobDTO jobDTO = new JobDTO();
+        jobDTO.setId(getId());
+        jobDTO.setClient(ObjectMapperUtils.map(getClient(), UserDTO.class));
+        jobDTO.setVehicle(ObjectMapperUtils.map(getVehicle(), VehicleDTO.class));
+        jobDTO.setTechnician(ObjectMapperUtils.map(getTechnician(), UserDTO.class));
+        jobDTO.setName(getName());
+        jobDTO.setStatus(getStatus());
+        jobDTO.setLabor(getLabor());
+        jobDTO.setRate(getRate());
+        jobDTO.setDueDate(getDueDate());
+        jobDTO.setDoorToDoor(getDoorToDoor());
+        jobDTO.setNotes(getNotes());
+//        private Set<InventoryItemJPA> parts;
+        return jobDTO;
     }
 }

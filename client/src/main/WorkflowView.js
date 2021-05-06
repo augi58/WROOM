@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import "./WorkflowView.css";
 import Board from "react-trello";
-import {Col, notification, Row} from "antd";
+import {notification, Row} from "antd";
 import AppBreadcrumb from "../common/AppBreadcrumb";
 import {changeJobStatus, getAllJobs} from "../utils/APIUtils";
+import moto_icon from "../images/moto_icon.png"
+import {UserOutlined} from "@ant-design/icons";
 
 export default class WorkflowView extends Component {
 
@@ -28,6 +30,26 @@ export default class WorkflowView extends Component {
         });
     };
 
+    createDescriptionCell(job) {
+        return <div className={"description-cell"}>
+            <Row>
+                <img src={moto_icon} alt={'img'}/><span>{job.vehicle.year} {job.vehicle.make} {job.vehicle.model}</span>
+            </Row>
+            <Row>
+                <UserOutlined/><span>{job.technician.name} {job.technician.surname}</span>
+            </Row>
+            <Row>
+                <span><strong>Notes:</strong> {job.notes}</span>
+            </Row>
+            <Row>
+                <span><strong>Estimated cost:</strong> {job.labor * job.rate} EUR</span>
+            </Row>
+            <Row>
+                <span><strong>Due date:</strong> {job.dueDate.toLocaleString().split("T")[0]}</span>
+            </Row>
+        </div>;
+    }
+
     createCards = (listOfJobs) => {
         let estimates = [];
         let droppedOff = [];
@@ -37,30 +59,30 @@ export default class WorkflowView extends Component {
         listOfJobs.forEach(job => {
             if (job.status === "ESTIMATE") {
                 estimates.push({
-                    id: job.id,
+                    id: job.id + "",
                     title: "(#" + job.id + ") " + job.name,
-                    description: "Test test",
+                    description: this.createDescriptionCell(job),
                     label: job.labor + " hours",
                 });
             } else if (job.status === "DROPPED_OFF") {
                 droppedOff.push({
-                    id: job.id,
+                    id: job.id + "",
                     title: "(#" + job.id + ") " + job.name,
-                    description: "Test test",
+                    description: this.createDescriptionCell(job),
                     label: job.labor + " hours",
                 });
             } else if (job.status === "IN_PROGRESS") {
                 inProgress.push({
-                    id: job.id,
+                    id: job.id + "",
                     title: "(#" + job.id + ") " + job.name,
-                    description: "Test test",
+                    description: this.createDescriptionCell(job),
                     label: job.labor + " hours",
                 });
             } else {
                 invoices.push({
-                    id: job.id,
+                    id: job.id + "",
                     title: "(#" + job.id + ") " + job.name,
-                    description: "Test test",
+                    description: this.createDescriptionCell(job),
                     label: job.labor + " hours",
                 });
             }

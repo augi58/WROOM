@@ -18,7 +18,7 @@ public class UserDTO {
     private String surname;
     private String mobileNumber;
     private String address;
-    private AccountJPA account;
+    private Long accountId;
     private Set<JobJPA> jobs;
     private List<VehicleJPA> vehicles;
 
@@ -86,12 +86,12 @@ public class UserDTO {
         this.address = address;
     }
 
-    public AccountJPA getAccount() {
-        return account;
+    public Long getAccountId() {
+        return accountId;
     }
 
-    public void setAccount(AccountJPA account) {
-        this.account = account;
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
     }
 
     public Set<JobJPA> getJobs() {

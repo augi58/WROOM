@@ -1,5 +1,7 @@
 package lt.augi58.wroom.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -20,6 +22,7 @@ public class InventoryItemJPA {
     @OrderColumn(name = "pos")
     private String[] fitsFor;
     @ManyToOne
+    @JsonIgnore
     private WorkshopJPA workshop;
     @Column
     private Integer quantity;

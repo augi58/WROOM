@@ -9,6 +9,8 @@ import {
     getAllTechnicians
 } from "../../utils/APIUtils";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
+import UserForm from "./UserForm";
+import VehicleForm from "./VehicleForm";
 
 const {Option} = Select;
 
@@ -19,7 +21,7 @@ export default class JobForm extends Component {
     }
 
     render() {
-        const AntWrappedForm = Form.create()(NewJobForm);
+        const AntWrappedForm = Form.create()(GenericForm);
         return (
             <div>
                 <AntWrappedForm dateSelected={this.props.dateSelected}
@@ -31,7 +33,7 @@ export default class JobForm extends Component {
     }
 }
 
-class NewJobForm extends Component {
+class GenericForm extends Component {
 
     constructor(props) {
         super(props);
@@ -40,7 +42,10 @@ class NewJobForm extends Component {
             clientOptions: null,
             vehicleOptions: null,
             technicianOptions: null,
-            partsOptions: null
+            partsOptions: null,
+
+            showUserForm: false,
+            showVehicleForm: false,
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,10 +53,9 @@ class NewJobForm extends Component {
     }
 
     componentDidMount(): void {
-        this.props.form.setFieldsValue({});
-
         getAllParts().then(response => {
             let partsOptions = response.map(k => {
+                console.log(k);
                 return <Option key={k.id} value={k.id}>{k.name} ({k.quantity} left)</Option>;
             });
             this.setState({partsOptions});
@@ -120,9 +124,9 @@ class NewJobForm extends Component {
                 let jobDTO = {
                     id: null,
                     name: values.name,
-                    clientId: values.clientId,
-                    technicianId: values.technicianId,
-                    vehicleId: values.vehicleId,
+                    client: {id: values.clientId},
+                    technician: {id: values.technicianId},
+                    vehicle: {id: values.vehicleId},
                     status: "ESTIMATE",
                     parts: values.parts,
                     labor: parseFloat(values.labor),
@@ -148,6 +152,10 @@ class NewJobForm extends Component {
             }
         });
     }
+
+    handleCancel = (formName) => {
+        this.setState({[formName]: false});
+    };
 
     render() {
 
@@ -188,7 +196,7 @@ class NewJobForm extends Component {
                                 {getFieldDecorator('clientId', {rules: [required]})
                                 (<Select style={{maxWidth: "100%"}}
                                          onChange={(id) => this.handleSelectChange("clientId", id)}>{this.state.clientOptions}</Select>)}
-                                <Button><PlusOutlined/>Add</Button>
+                                <Button onClick={() => this.setState({showUserForm: true})}><PlusOutlined/>Add</Button>
                             </Form.Item>
 
                             <Form.Item labelCol={{span: 5}}
@@ -199,8 +207,8 @@ class NewJobForm extends Component {
                                 {getFieldDecorator('vehicleId', {rules: [required]})
                                 (<Select disabled={!this.props.form.getFieldValue("clientId")}
                                          onChange={(id) => this.handleSelectChange("vehicleId", id)}>{this.state.vehicleOptions}</Select>)}
-                                <Button
-                                    disabled={!this.props.form.getFieldValue("clientId")}><PlusOutlined/>Add</Button>
+                                <Button onClick={() => this.setState({showVehicleForm: true})}
+                                        disabled={!this.props.form.getFieldValue("clientId")}><PlusOutlined/>Add</Button>
                             </Form.Item>
 
                             <Form.Item labelCol={{span: 5}}
@@ -300,6 +308,28 @@ class NewJobForm extends Component {
                                         Create Job
                                     </Button>
                                 </Form.Item>
+
+                                <Modal
+                                    title="Register New Customer"
+                                    visible={this.state.showUserForm}
+                                    confirmLoading={false}
+                                    onCancel={() => this.handleCancel("showUserForm")}
+                                    footer={null}
+                                    width={"850px"}
+                                >
+                                    <UserForm closeModal={() => this.handleCancel("showUserForm")}/>
+                                </Modal>
+
+                                <Modal
+                                    title="Register New Motorcycle"
+                                    visible={this.state.showVehicleForm}
+                                    confirmLoading={false}
+                                    onCancel={() => this.handleCancel("showVehicleForm")}
+                                    footer={null}
+                                    width={"850px"}
+                                >
+                                    <VehicleForm closeModal={() => this.handleCancel("showVehicleForm")}/>
+                                </Modal>
                             </div>
                         </Form>
                     </div>

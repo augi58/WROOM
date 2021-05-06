@@ -2,7 +2,9 @@ package lt.augi58.wroom.service.impl;
 
 import lt.augi58.wroom.domain.UserDTO;
 import lt.augi58.wroom.enums.Role;
+import lt.augi58.wroom.model.AccountJPA;
 import lt.augi58.wroom.model.UserJPA;
+import lt.augi58.wroom.repository.AccountDAO;
 import lt.augi58.wroom.repository.UserDAO;
 import lt.augi58.wroom.service.UserService;
 import lt.augi58.wroom.utils.ObjectMapperUtils;
@@ -17,6 +19,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDAO userDAO;
+    @Autowired
+    AccountDAO accountDAO;
 
     @Override
     @Transactional
@@ -24,6 +28,8 @@ public class UserServiceImpl implements UserService {
         if (userDTO.getId() == null) {
             UserJPA newUser = new UserJPA();
             ObjectMapperUtils.map(userDTO, newUser);
+            AccountJPA account = accountDAO.getById(userDTO.getAccountId());
+            newUser.setAccount(account);
             userDAO.create(newUser);
         } else {
             UserJPA original = userDAO.findById(userDTO.getId()).orElse(null);

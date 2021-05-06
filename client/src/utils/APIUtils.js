@@ -30,6 +30,14 @@ export function getAllParts() {
     });
 }
 
+export function createUpdateInventoryItem(inventoryItemDTO) {
+    return request({
+        url: API_BASE_URL + "/inventory/create-update-part",
+        method: 'POST',
+        body: JSON.stringify(inventoryItemDTO)
+    });
+}
+
 export function getAllClients() {
     return request({
         url: API_BASE_URL + "/user/get-all-clients",
@@ -63,6 +71,22 @@ export function createUpdateJob(jobDTO) {
         url: API_BASE_URL + "/job/create-update",
         method: 'POST',
         body: JSON.stringify(jobDTO)
+    });
+}
+
+export function createUpdateUser(userDTO) {
+    return request({
+        url: API_BASE_URL + "/user/create-update",
+        method: 'POST',
+        body: JSON.stringify(userDTO)
+    });
+}
+
+export function createUpdateVehicle(vehicleDTO) {
+    return request({
+        url: API_BASE_URL + "/vehicle/create-update",
+        method: 'POST',
+        body: JSON.stringify(vehicleDTO)
     });
 }
 
