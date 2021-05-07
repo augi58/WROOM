@@ -111,3 +111,9 @@ export function changeJobStatus(jobId, newStatus) {
     });
 }
 
+export function getSummary() {
+    return request({
+        url: API_BASE_URL + "/summary/get",
+        method: 'GET'
+    });
+}

@@ -97,7 +97,8 @@ class GenericForm extends Component {
             getSuitableParts(id).then(response => {
                 let partsOptions = response.map(k => {
                     console.log(k);
-                    return <Option key={k.id} value={k.id}>{k.name} ({k.quantity} left)</Option>;
+                    return <Option key={k.id} value={k.id}>{k.name} {k.make}, {k.quantity} left, (part
+                        no. {k.serialNo})</Option>;
                 });
                 this.setState({partsOptions});
             }).catch(error => {
@@ -129,12 +130,14 @@ class GenericForm extends Component {
                     technician: {id: values.technicianId},
                     vehicle: {id: values.vehicleId},
                     status: "ESTIMATE",
-                    parts: values.parts,
+                    parts: values.parts.map(partId => {
+                        return {id: partId}
+                    }),
                     labor: parseFloat(values.labor),
                     rate: parseFloat(values.rate),
                     dueDate: values.dueDate.toDate(),
                     notes: values.notes,
-                    doorToDoor: values.doorToDoor,
+                    doorToDoor: values.doorToDoor || false,
                 };
 
                 createUpdateJob(jobDTO).then(response => {

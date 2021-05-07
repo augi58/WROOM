@@ -33,6 +33,13 @@ export default class WorkflowView extends Component {
     };
 
     createDescriptionCell(job) {
+        let partsCost = 0;
+        console.log(job);
+        if (job.parts) {
+            job.parts.forEach(part => {
+                partsCost += part.cost;
+            });
+        }
         return <div className={"description-cell"}>
             <Row>
                 <img src={moto_icon} alt={'img'}/><span>{job.vehicle.year} {job.vehicle.make} {job.vehicle.model}</span>
@@ -44,7 +51,7 @@ export default class WorkflowView extends Component {
                 <span><strong>Notes:</strong> {job.notes}</span>
             </Row>
             <Row>
-                <span><strong>Estimated cost:</strong> {job.labor * job.rate} EUR</span>
+                <span><strong>Estimated cost:</strong> {job.labor * job.rate + partsCost} EUR</span>
             </Row>
             <Row>
                 <span><strong>Due date:</strong> {job.dueDate.toLocaleString().split("T")[0]}</span>

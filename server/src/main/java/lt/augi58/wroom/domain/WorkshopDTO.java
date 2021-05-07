@@ -6,6 +6,7 @@ public class WorkshopDTO {
     private Long id;
     private Long accountId;
     private String name;
+    private String address;
     private List<InventoryItemDTO> inventoryItems;
 
     public Long getId() {
@@ -30,6 +31,14 @@ public class WorkshopDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public List<InventoryItemDTO> getInventoryItems() {

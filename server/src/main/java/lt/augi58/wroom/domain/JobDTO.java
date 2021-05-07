@@ -12,7 +12,7 @@ public class JobDTO {
     private UserDTO client;
     private UserDTO technician;
     private JobStatus status;
-    private List<Long> parts;
+    private List<InventoryItemDTO> parts;
     private Double labor;
     private Double rate;
     private Date dueDate;
@@ -69,11 +69,11 @@ public class JobDTO {
         this.status = status;
     }
 
-    public List<Long> getParts() {
+    public List<InventoryItemDTO> getParts() {
         return parts;
     }
 
-    public void setParts(List<Long> parts) {
+    public void setParts(List<InventoryItemDTO> parts) {
         this.parts = parts;
     }
 

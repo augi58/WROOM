@@ -11,6 +11,7 @@ public class InventoryItemDTO {
     private List<String> fitsFor;
     private Long workshopId;
     private Integer quantity;
+    private Double cost;
 
     public Long getId() {
         return id;
@@ -66,5 +67,13 @@ public class InventoryItemDTO {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 }

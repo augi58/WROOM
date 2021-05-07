@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./DashboardCards.css"
 import {Col, Row, Tabs} from "antd";
+import {getSummary} from "../utils/APIUtils";
 
 export default class WorkflowStatus extends Component {
 
@@ -8,10 +9,20 @@ export default class WorkflowStatus extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            summary: {}
+        };
+    }
+
+    componentDidMount(): void {
+        getSummary().then(summary => {
+            this.setState({summary})
+        })
     }
 
     render() {
-
+        const summary = this.state.summary;
         return (
             <div className={"card"}>
                 <div className={"header"}><span>Workflow Summary</span></div>
@@ -22,10 +33,10 @@ export default class WorkflowStatus extends Component {
                             Estimates
                         </Col>
                         <Col span={8}>
-                            0 orders
+                            {summary?.estimatesOrders} orders
                         </Col>
                         <Col span={8}>
-                            0 EUR
+                            {summary?.estimatesSum} EUR
                         </Col>
                     </Row>
                     <Row className={"row"}>
@@ -33,10 +44,10 @@ export default class WorkflowStatus extends Component {
                             Dropped Off
                         </Col>
                         <Col span={8}>
-                            0 orders
+                            {summary?.droppedOffOrders} orders
                         </Col>
                         <Col span={8}>
-                            0 EUR
+                            {summary?.droppedOffSum} EUR
                         </Col>
                     </Row>
                     <Row className={"row"}>
@@ -44,10 +55,10 @@ export default class WorkflowStatus extends Component {
                             In Progress
                         </Col>
                         <Col span={8}>
-                            0 orders
+                            {summary?.inProgressOrders} orders
                         </Col>
                         <Col span={8}>
-                            0 EUR
+                            {summary?.inProgressSum} EUR
                         </Col>
                     </Row>
                     <Row className={"row"}>
@@ -55,10 +66,10 @@ export default class WorkflowStatus extends Component {
                             Invoices
                         </Col>
                         <Col span={8}>
-                            0 orders
+                            {summary?.invoicesOrders} orders
                         </Col>
                         <Col span={8}>
-                            0 EUR
+                            {summary?.invoicesSum} EUR
                         </Col>
                     </Row>
                     <Row className={"total-row"}>
@@ -66,10 +77,10 @@ export default class WorkflowStatus extends Component {
                             TOTAL:
                         </Col>
                         <Col span={8}>
-                            0 orders
+                            {summary?.totalOrders} orders
                         </Col>
                         <Col span={8}>
-                            0 EUR
+                            {summary?.totalSum} EUR
                         </Col>
                     </Row>
                 </div>

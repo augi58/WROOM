@@ -1,6 +1,7 @@
 package lt.augi58.wroom.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lt.augi58.wroom.domain.InventoryItemDTO;
 import lt.augi58.wroom.domain.JobDTO;
 import lt.augi58.wroom.domain.UserDTO;
 import lt.augi58.wroom.domain.VehicleDTO;
@@ -10,6 +11,7 @@ import lt.augi58.wroom.utils.ObjectMapperUtils;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "jobs")
@@ -145,6 +147,7 @@ public class JobJPA {
         jobDTO.setClient(ObjectMapperUtils.map(getClient(), UserDTO.class));
         jobDTO.setVehicle(ObjectMapperUtils.map(getVehicle(), VehicleDTO.class));
         jobDTO.setTechnician(ObjectMapperUtils.map(getTechnician(), UserDTO.class));
+        jobDTO.setParts(getParts().stream().map(part -> ObjectMapperUtils.map(part, InventoryItemDTO.class)).collect(Collectors.toList()));
         jobDTO.setName(getName());
         jobDTO.setStatus(getStatus());
         jobDTO.setLabor(getLabor());
@@ -152,7 +155,6 @@ public class JobJPA {
         jobDTO.setDueDate(getDueDate());
         jobDTO.setDoorToDoor(getDoorToDoor());
         jobDTO.setNotes(getNotes());
-//        private Set<InventoryItemJPA> parts;
         return jobDTO;
     }
 }

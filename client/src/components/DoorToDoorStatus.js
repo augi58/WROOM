@@ -1,15 +1,27 @@
 import React, {Component} from 'react';
 import "./DashboardCards.css"
 import {Col, Row} from "antd";
+import {getSummary} from "../utils/APIUtils";
 
 
 export default class DoorToDoorStatus extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            summary: {}
+        }
+    }
+
+    componentDidMount(): void {
+        getSummary().then(summary => {
+            this.setState({summary})
+        })
     }
 
     render() {
+        const summary = this.state.summary;
         return (
             <div className={"card"}>
                 <div className={"header"}><span>Door-to-Door Jobs</span></div>
@@ -19,7 +31,7 @@ export default class DoorToDoorStatus extends Component {
                             Awaiting Pick-Up
                         </Col>
                         <Col span={12}>
-                            0 orders
+                            {summary.doorToDoorEstimatesOrders} orders
                         </Col>
                     </Row>
                     <Row className={"row"}>
@@ -27,7 +39,7 @@ export default class DoorToDoorStatus extends Component {
                             In Progress
                         </Col>
                         <Col span={12}>
-                            0 orders
+                            {summary.doorToDoorInProgressOrders} orders
                         </Col>
                     </Row>
                     <Row className={"row"}>
@@ -35,7 +47,7 @@ export default class DoorToDoorStatus extends Component {
                             Delivered
                         </Col>
                         <Col span={12}>
-                            0 orders
+                            {summary.doorToDoorDeliveredOrders} orders
                         </Col>
                     </Row>
                 </div>

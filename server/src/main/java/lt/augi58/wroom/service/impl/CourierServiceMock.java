@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class CourierServiceMock implements CourierService {
 
     @Override
-    public void createDelivery() {
+    public void createDelivery(String addressFrom, String addressTo) {
 
     }
 

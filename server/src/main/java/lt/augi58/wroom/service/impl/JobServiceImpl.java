@@ -1,9 +1,7 @@
 package lt.augi58.wroom.service.impl;
 
 import lt.augi58.wroom.domain.JobDTO;
-import lt.augi58.wroom.domain.UserDTO;
 import lt.augi58.wroom.enums.JobStatus;
-import lt.augi58.wroom.model.InventoryItemJPA;
 import lt.augi58.wroom.model.JobJPA;
 import lt.augi58.wroom.model.UserJPA;
 import lt.augi58.wroom.model.VehicleJPA;
@@ -11,18 +9,17 @@ import lt.augi58.wroom.repository.InventoryItemDAO;
 import lt.augi58.wroom.repository.JobDAO;
 import lt.augi58.wroom.repository.UserDAO;
 import lt.augi58.wroom.repository.VehicleDAO;
+import lt.augi58.wroom.service.AccountService;
+import lt.augi58.wroom.service.CourierService;
 import lt.augi58.wroom.service.JobService;
+import lt.augi58.wroom.service.WorkshopService;
 import lt.augi58.wroom.utils.ObjectMapperUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
 import javax.transaction.Transactional;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -37,6 +34,10 @@ public class JobServiceImpl implements JobService {
     InventoryItemDAO inventoryItemDAO;
     @Autowired
     VehicleDAO vehicleDAO;
+    @Autowired
+    CourierService courierService;
+    @Autowired
+    WorkshopService workshopService;
 
     @Override
     public List<JobDTO> getAll() {
@@ -64,8 +65,8 @@ public class JobServiceImpl implements JobService {
             if (newJob.getParts() == null) {
                 newJob.setParts(new HashSet<>());
             }
-            job.getParts().forEach(partId -> {
-                newJob.getParts().add(inventoryItemDAO.getById(partId));
+            job.getParts().forEach(part -> {
+                newJob.getParts().add(inventoryItemDAO.getById(part.getId()));
             });
             newJob.setName(job.getName());
             newJob.setStatus(job.getStatus());
@@ -75,6 +76,9 @@ public class JobServiceImpl implements JobService {
             newJob.setDoorToDoor(job.getDoorToDoor());
             newJob.setNotes(job.getNotes());
             jobDAO.create(newJob);
+            if (job.getDoorToDoor()) {
+                this.createDoorToDoorPickup(job);
+            }
             return job;
         } else {
             JobJPA original = jobDAO.findById(job.getId()).orElse(null);
@@ -99,8 +103,10 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public void createDoorToDoorPickup() {
-
+    public void createDoorToDoorPickup(JobDTO jobDTO) {
+        String addressFrom = jobDTO.getClient().getAddress();
+        String addressTo = workshopService.get(1L).getAddress();
+        courierService.createDelivery(addressFrom, addressTo);
     }
 
 }

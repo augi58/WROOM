@@ -26,6 +26,8 @@ public class InventoryItemJPA {
     private WorkshopJPA workshop;
     @Column
     private Integer quantity;
+    @Column
+    private Double cost;
     @ManyToMany
     private Set<JobJPA> jobs;
 
@@ -83,5 +85,13 @@ public class InventoryItemJPA {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Double getCost() {
+        return cost;
+    }
+
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 }

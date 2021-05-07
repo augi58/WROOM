@@ -70,9 +70,12 @@ class GenericForm extends Component {
                         name: values.name,
                         make: values.make,
                         serialNo: values.serialNo,
-                        fitsFor: values.fitsFor.split(","),
+                        fitsFor: values.fitsFor ? values.fitsFor.split(",").filter(entry => {
+                            return entry.length > 0
+                        }) : null,
                         workshopId: 1,
                         quantity: parseInt(values.quantity),
+                        cost: parseFloat(values.cost)
                     };
 
                 createUpdateInventoryItem(inventoryItemDTO).then(response => {
@@ -174,6 +177,20 @@ class GenericForm extends Component {
                                     name="quantity"
                                     autoComplete="off"
                                     placeholder="Quantity"
+                                    onChange={this.handleInputChange}/>)}
+                            </Form.Item>
+
+                            <Form.Item labelCol={{span: 5}}
+                                       wrapperCol={{span: 18}}
+                                       label="Cost:"
+                                       extra={"Cost"}
+                            >
+                                {getFieldDecorator('cost', {rules: [required]})
+                                (<Input
+                                    type={"number"}
+                                    name="cost"
+                                    autoComplete="off"
+                                    placeholder="Cost"
                                     onChange={this.handleInputChange}/>)}
                             </Form.Item>
 

@@ -15,6 +15,6 @@ public interface JobService {
 
     boolean changeStatus(Long jobId, JobStatus newStatus);
 
-    void createDoorToDoorPickup();
+    void createDoorToDoorPickup(JobDTO jobDTO);
 
 }

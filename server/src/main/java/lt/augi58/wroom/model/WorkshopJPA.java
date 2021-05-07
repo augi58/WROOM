@@ -14,6 +14,8 @@ public class WorkshopJPA {
     private AccountJPA account;
     @Column
     private String name;
+    @Column
+    private String address;
     @OneToMany(mappedBy = "workshop", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<InventoryItemJPA> inventoryItems;
 
@@ -39,6 +41,14 @@ public class WorkshopJPA {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Set<InventoryItemJPA> getInventoryItems() {
