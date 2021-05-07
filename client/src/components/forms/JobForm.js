@@ -6,7 +6,7 @@ import {
     getAllClients,
     getAllClientVehicles,
     getAllParts,
-    getAllTechnicians
+    getAllTechnicians, getSuitableParts
 } from "../../utils/APIUtils";
 import PlusOutlined from "@ant-design/icons/lib/icons/PlusOutlined";
 import UserForm from "./UserForm";
@@ -53,16 +53,6 @@ class GenericForm extends Component {
     }
 
     componentDidMount(): void {
-        getAllParts().then(response => {
-            let partsOptions = response.map(k => {
-                console.log(k);
-                return <Option key={k.id} value={k.id}>{k.name} ({k.quantity} left)</Option>;
-            });
-            this.setState({partsOptions});
-        }).catch(error => {
-            console.log(error);
-        });
-
         getAllClients().then(response => {
             let clientOptions = response.map(k => {
                 return <Option key={k.id} value={k.id}>{k.name} {k.surname}</Option>;
@@ -99,6 +89,17 @@ class GenericForm extends Component {
                     return <Option key={k.id} value={k.id}>{k.year} {k.make} {k.model}</Option>;
                 });
                 this.setState({vehicleOptions});
+            }).catch(error => {
+                console.log(error);
+            });
+        }
+        if (fieldName === "vehicleId") {
+            getSuitableParts(id).then(response => {
+                let partsOptions = response.map(k => {
+                    console.log(k);
+                    return <Option key={k.id} value={k.id}>{k.name} ({k.quantity} left)</Option>;
+                });
+                this.setState({partsOptions});
             }).catch(error => {
                 console.log(error);
             });

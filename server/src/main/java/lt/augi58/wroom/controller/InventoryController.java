@@ -23,6 +23,12 @@ public class InventoryController {
         return inventoryService.getAll();
     }
 
+
+    @GetMapping(path = "/get-all-suitable/{vehicleId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<InventoryItemDTO> getSuitableParts(@PathVariable("vehicleId") Long vehicleId) {
+        return inventoryService.getAllSuitable(vehicleId);
+    }
+
     @PostMapping(path = "/create-update-part", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> createUpdate(@RequestBody InventoryItemDTO inventoryItemDTO) {
         return inventoryService.createUpdate(inventoryItemDTO) != null ?

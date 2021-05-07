@@ -10,6 +10,8 @@ public interface InventoryService {
 
     List<InventoryItemDTO> getAll();
 
+    List<InventoryItemDTO> getAllSuitable(Long vehicleId);
+
     List<InventoryItemDTO> getByJobId(Long jobId);
 
     InventoryItemDTO get(Long itemId);

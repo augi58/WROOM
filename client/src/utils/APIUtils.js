@@ -30,6 +30,13 @@ export function getAllParts() {
     });
 }
 
+export function getSuitableParts(vehicleId) {
+    return request({
+        url: API_BASE_URL + "/inventory/get-all-suitable/" + vehicleId,
+        method: 'GET'
+    });
+}
+
 export function createUpdateInventoryItem(inventoryItemDTO) {
     return request({
         url: API_BASE_URL + "/inventory/create-update-part",
@@ -62,6 +69,13 @@ export function getAllTechnicians() {
 export function getAllJobs() {
     return request({
         url: API_BASE_URL + "/job/get-all",
+        method: 'GET'
+    });
+}
+
+export function getActiveJobs() {
+    return request({
+        url: API_BASE_URL + "/job/get-active",
         method: 'GET'
     });
 }

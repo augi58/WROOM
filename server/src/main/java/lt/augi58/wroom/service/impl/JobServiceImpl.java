@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,6 +42,13 @@ public class JobServiceImpl implements JobService {
     public List<JobDTO> getAll() {
         return jobDAO.findAll().stream().map(JobJPA::createDTO).collect(Collectors.toList());
     }
+
+    @Override
+    public List<JobDTO> getActive() {
+        return getAll().stream().filter(is_active).collect(Collectors.toList());
+    }
+
+    private final Predicate<JobDTO> is_active = (job) -> !job.getStatus().equals(JobStatus.INVOICE);
 
     @Override
     @Transactional

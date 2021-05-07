@@ -3,7 +3,7 @@ import "./CalendarView.css"
 import {Calendar, Modal, Tag} from "antd";
 import AppBreadcrumb from "../common/AppBreadcrumb";
 import JobForm from "../components/forms/JobForm";
-import {getAllJobs} from "../utils/APIUtils";
+import {getActiveJobs} from "../utils/APIUtils";
 
 export default class CalendarView extends Component {
 
@@ -56,7 +56,7 @@ export default class CalendarView extends Component {
 
 
     getJobs = () => {
-        getAllJobs().then(jobs => {
+        getActiveJobs().then(jobs => {
             this.setState({jobs})
         });
     };

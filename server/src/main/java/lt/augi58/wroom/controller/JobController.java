@@ -23,6 +23,12 @@ public class JobController {
         return jobService.getAll();
     }
 
+    @GetMapping(path = "/get-active", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<JobDTO> getActiveJobs() {
+        return jobService.getActive();
+    }
+
+
     @PostMapping(path = "/create-update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> modify(@RequestBody JobDTO job) {
         return jobService.createUpdate(job) != null ?

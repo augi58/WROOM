@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import "./WorkflowView.css";
 import Board from "react-trello";
-import {notification, Row} from "antd";
+import {Button, Modal, notification, Row} from "antd";
 import AppBreadcrumb from "../common/AppBreadcrumb";
 import {changeJobStatus, getAllJobs} from "../utils/APIUtils";
 import moto_icon from "../images/moto_icon.png"
-import {UserOutlined} from "@ant-design/icons";
+import {PlusOutlined, UserOutlined} from "@ant-design/icons";
+import JobForm from "../components/forms/JobForm";
 
 export default class WorkflowView extends Component {
 
@@ -16,7 +17,8 @@ export default class WorkflowView extends Component {
             estimate: [],
             droppedOff: [],
             inProgress: [],
-            invoice: []
+            invoice: [],
+            showJobForm: false,
         }
     }
 
@@ -115,6 +117,12 @@ export default class WorkflowView extends Component {
         return this.state[laneId].length + "/" + sum;
     };
 
+    handleCancel = () => {
+        this.setState({showJobForm: false}, () => {
+            this.getJobs();
+        });
+    };
+
     render() {
 
         const data = {
@@ -151,10 +159,24 @@ export default class WorkflowView extends Component {
         return (
             <div className={"workflow-view"}>
                 <AppBreadcrumb items={"Dashboard"}/>
+                <Row>
+                    <Button style={{marginLeft: 5}} onClick={() => this.setState({showJobForm: true})}><PlusOutlined/>Create
+                        New</Button>
+                </Row>
                 <Board onCardDelete={(cardId, laneId) => console.log(cardId)}
                        onCardMoveAcrossLanes={this.handleLaneChange}
                        data={data}
                        style={{background: "none"}}/>
+                <Modal
+                    title="Create job"
+                    visible={this.state.showJobForm}
+                    confirmLoading={false}
+                    onCancel={() => this.handleCancel("showJobForm")}
+                    footer={null}
+                    width={"850px"}
+                >
+                    <JobForm closeModal={() => this.handleCancel("showJobForm")}/>
+                </Modal>
             </div>
         )
     }

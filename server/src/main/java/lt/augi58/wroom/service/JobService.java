@@ -9,6 +9,8 @@ public interface JobService {
 
     List<JobDTO> getAll();
 
+    List<JobDTO> getActive();
+
     JobDTO createUpdate(JobDTO job);
 
     boolean changeStatus(Long jobId, JobStatus newStatus);
