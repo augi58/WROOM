@@ -1,31 +1,35 @@
 package lt.augi58.wroom.service;
 
-import lt.augi58.wroom.BaseTest;
 import lt.augi58.wroom.domain.AccountDTO;
 import lt.augi58.wroom.domain.UserDTO;
 import lt.augi58.wroom.enums.Role;
 import org.junit.Assert;
+import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+@SpringBootTest
+@RunWith(SpringJUnit4ClassRunner.class)
+public class AccountServiceTest {
 
-class AccountServiceTest extends BaseTest {
     @Autowired
     AccountService accountService;
+    @Autowired
     UserService userService;
 
     @Test
-    void createUpdate() {
+    public void createUpdate() {
         var createdAccount = givenAccount();
         assert (createdAccount.getId().equals(12355L));
     }
 
     @Test
-    void get() {
+    public void get() {
         var createdAccount = givenAccount();
 
         Assert.assertEquals(
@@ -35,7 +39,7 @@ class AccountServiceTest extends BaseTest {
     }
 
     @Test
-    void delete() {
+    public void delete() {
         var createdAccount = givenAccount();
 
         accountService.delete(createdAccount.getId());
@@ -47,7 +51,7 @@ class AccountServiceTest extends BaseTest {
     private AccountDTO givenAccount() {
         var account = new AccountDTO();
 
-        account.setId(12355L);
+//        account.setId(12355L);
         account.setName("Jackson");
         account.setUsers((List<UserDTO>) userService.get(givenUser().getId()));
 

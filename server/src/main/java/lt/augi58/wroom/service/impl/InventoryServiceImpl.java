@@ -39,9 +39,14 @@ public class InventoryServiceImpl implements InventoryService {
             inventoryItemDAO.create(newItem);
         } else {
             InventoryItemJPA original = inventoryItemDAO.findById(inventoryItemDTO.getId()).orElse(null);
-            InventoryItemJPA updated = new InventoryItemJPA();
-            ObjectMapperUtils.map(original, updated);
-            inventoryItemDAO.merge(updated);
+            if (original != null) {
+                InventoryItemJPA updated = new InventoryItemJPA();
+                ObjectMapperUtils.map(original, updated);
+                inventoryItemDAO.merge(updated);
+            } else {
+                inventoryItemDTO.setId(null);
+                createUpdate(inventoryItemDTO);
+            }
         }
         return inventoryItemDTO;
     }
