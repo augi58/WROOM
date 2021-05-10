@@ -35,7 +35,7 @@ class AppHeader extends Component {
 
                     <Col span={4}>
                         <div className="account-data-wrapper">
-                            <UserPanel user={this.props.user} logout={this.props.logout}/>
+                            <UserPanel switchAccount={this.props.switchAccount} user={this.props.user} logout={this.props.logout}/>
                         </div>
                     </Col>
                 </Row>

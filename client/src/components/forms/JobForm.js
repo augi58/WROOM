@@ -27,7 +27,8 @@ export default class JobForm extends Component {
                 <AntWrappedForm dateSelected={this.props.dateSelected}
                                 closeModal={this.props.closeModal}
                                 user={this.props.user}
-                                update={this.props.update}/>
+                                update={this.props.update}
+                                accountId={this.props.accountId}/>
             </div>
         );
     }
@@ -53,7 +54,7 @@ class GenericForm extends Component {
     }
 
     componentDidMount(): void {
-        getAllClients().then(response => {
+        getAllClients(this.props.accountId).then(response => {
             let clientOptions = response.map(k => {
                 return <Option key={k.id} value={k.id}>{k.name} {k.surname}</Option>;
             });
@@ -62,7 +63,7 @@ class GenericForm extends Component {
             console.log(error);
         });
 
-        getAllTechnicians().then(response => {
+        getAllTechnicians(this.props.accountId).then(response => {
             let technicianOptions = response.map(k => {
                 return <Option key={k.id} value={k.id}>{k.name} {k.surname}</Option>;
             });
@@ -89,6 +90,8 @@ class GenericForm extends Component {
                     return <Option key={k.id} value={k.id}>{k.year} {k.make} {k.model}</Option>;
                 });
                 this.setState({vehicleOptions});
+                this.props.form.setFieldsValue({vehicleId: null});
+                this.props.form.setFieldsValue({parts: []});
             }).catch(error => {
                 console.log(error);
             });
@@ -100,6 +103,7 @@ class GenericForm extends Component {
                     return <Option key={k.id} value={k.id}>{k.name} {k.make}, {k.quantity} left, (part
                         no. {k.serialNo})</Option>;
                 });
+                this.props.form.setFieldsValue({parts: []});
                 this.setState({partsOptions});
             }).catch(error => {
                 console.log(error);

@@ -22,18 +22,18 @@ export default class DashboardView extends Component {
                 <div>
                     <Row>
                         <Col span={10}>
-                            <WorkflowStatus/>
+                            <WorkflowStatus accountId={this.props.accountId}/>
                         </Col>
                         <Col span={14}>
-                            <UpcomingAppointments/>
+                            <UpcomingAppointments accountId={this.props.accountId}/>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={10}>
-                            <QuickActions/>
+                            <QuickActions accountId={this.props.accountId}/>
                         </Col>
                         <Col span={14}>
-                            <DoorToDoorStatus/>
+                            <DoorToDoorStatus accountId={this.props.accountId}/>
                         </Col>
                     </Row>
                 </div>

@@ -4,6 +4,6 @@ import lt.augi58.wroom.domain.SummaryDTO;
 
 public interface SummaryService {
 
-    SummaryDTO getSummary();
+    SummaryDTO getSummary(Long accountId);
 
 }

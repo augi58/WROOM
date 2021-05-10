@@ -26,15 +26,20 @@ export default class WorkflowView extends Component {
         this.getJobs();
     }
 
+    componentWillReceiveProps(nextProps: Readonly<P>, nextContext: any): void {
+        getAllJobs(nextProps.accountId).then(response => {
+            this.createCards(response);
+        });
+    }
+
     getJobs() {
-        getAllJobs().then(response => {
+        getAllJobs(this.props.accountId).then(response => {
             this.createCards(response);
         });
     };
 
     createDescriptionCell(job) {
         let partsCost = 0;
-        console.log(job);
         if (job.parts) {
             job.parts.forEach(part => {
                 partsCost += part.cost;
@@ -54,7 +59,7 @@ export default class WorkflowView extends Component {
                 <span><strong>Estimated cost:</strong> {job.labor * job.rate + partsCost} EUR</span>
             </Row>
             <Row>
-                <span><strong>Due date:</strong> {job.dueDate.toLocaleString().split("T")[0]}</span>
+                <span><strong>Due date:</strong> {job.dueDate?.toLocaleString().split("T")[0]}</span>
             </Row>
         </div>;
     }

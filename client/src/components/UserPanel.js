@@ -25,7 +25,10 @@ export default class UserPanel extends Component {
                 <Menu.Item key="1">
                     <Link to="/profile">Profile</Link>
                 </Menu.Item>
-                <Menu.Item key="2" onClick={this.props.logout}>
+                <Menu.Item key="2" onClick={() => this.props.switchAccount(2)}>
+                    Switch account
+                </Menu.Item>
+                <Menu.Item key="3" onClick={this.props.logout}>
                     Logout
                 </Menu.Item>
             </Menu>
@@ -64,7 +67,7 @@ export default class UserPanel extends Component {
                                 <div className={"name-container"}>
                                     <span className={"name"}>{name}</span><br/>
                                     <span
-                                        className={"account-name"}>{this.state.account != null ? this.state.account.name : ""}</span>
+                                        className={"account-name"}>{"Manager"}</span>
                                 </div>
                             </Col>
                             <Col span={1}>

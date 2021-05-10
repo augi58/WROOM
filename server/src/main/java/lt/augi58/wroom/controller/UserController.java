@@ -1,6 +1,5 @@
 package lt.augi58.wroom.controller;
 
-import lt.augi58.wroom.domain.InventoryItemDTO;
 import lt.augi58.wroom.domain.ResponseDTO;
 import lt.augi58.wroom.domain.UserDTO;
 import lt.augi58.wroom.service.UserService;
@@ -25,14 +24,14 @@ public class UserController {
                 ResponseEntity.ok(new ResponseDTO(false, "Something went wrong"));
     }
 
-    @GetMapping(path = "/get-all-clients", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> getClients() {
-        return userService.getClients();
+    @GetMapping(path = "/get-all-clients/{account}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserDTO> getClients(@PathVariable Long account) {
+        return userService.getClients(account);
     }
 
-    @GetMapping(path = "/get-all-technicians", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<UserDTO> getTechnicians() {
-        return userService.getTechnicians();
+    @GetMapping(path = "/get-all-technicians/{account}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<UserDTO> getTechnicians(@PathVariable Long account) {
+        return userService.getTechnicians(account);
     }
 
 }

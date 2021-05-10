@@ -52,13 +52,13 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobDTO> getAll() {
-        return jobDAO.findAll().stream().map(JobJPA::createDTO).collect(Collectors.toList());
+    public List<JobDTO> getAll(Long accountId) {
+        return jobDAO.getAllByAccountId(accountId).stream().map(JobJPA::createDTO).collect(Collectors.toList());
     }
 
     @Override
-    public List<JobDTO> getActive() {
-        return getAll().stream().filter(is_active).collect(Collectors.toList());
+    public List<JobDTO> getActive(Long accountId) {
+        return getAll(accountId).stream().filter(is_active).collect(Collectors.toList());
     }
 
     private final Predicate<JobDTO> is_active = (job) -> !job.getStatus().equals(JobStatus.INVOICE);

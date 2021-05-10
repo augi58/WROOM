@@ -16,7 +16,14 @@ export default class WorkflowStatus extends Component {
     }
 
     componentDidMount(): void {
-        getSummary().then(summary => {
+        getSummary(this.props.accountId).then(summary => {
+            this.setState({summary})
+        })
+    }
+
+    componentWillReceiveProps(nextProps): void {
+        getSummary(nextProps.accountId).then(summary => {
+            console.log(summary);
             this.setState({summary})
         })
     }

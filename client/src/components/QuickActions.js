@@ -6,6 +6,7 @@ import {PlusOutlined} from "@ant-design/icons";
 import InventoryItemForm from "./forms/InventoryItemForm";
 import UserForm from "./forms/UserForm";
 import VehicleForm from "./forms/VehicleForm";
+import WorkflowView from "../main/WorkflowView";
 
 export default class QuickActions extends Component {
 
@@ -60,7 +61,7 @@ export default class QuickActions extends Component {
                     footer={null}
                     width={"850px"}
                 >
-                    <JobForm closeModal={() => this.handleCancel("showJobForm")}/>
+                    <JobForm  accountId={this.props.accountId} closeModal={() => this.handleCancel("showJobForm")}/>
                 </Modal>
 
                 <Modal

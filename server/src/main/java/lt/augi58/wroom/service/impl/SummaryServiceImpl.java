@@ -19,8 +19,8 @@ public class SummaryServiceImpl implements SummaryService {
     JobService jobService;
 
     @Override
-    public SummaryDTO getSummary() {
-        List<JobDTO> jobs = jobService.getAll();
+    public SummaryDTO getSummary(Long accountId) {
+        List<JobDTO> jobs = jobService.getAll(accountId);
         SummaryDTO summary = new SummaryDTO();
 
         summary.setEstimatesOrders(jobs.stream().filter(job -> job.getStatus().equals(JobStatus.ESTIMATE)).count());

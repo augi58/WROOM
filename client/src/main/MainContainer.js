@@ -5,24 +5,20 @@ import DashboardView from "./DashboardView.js";
 import WorkflowView from "./WorkflowView";
 import CalendarView from "./CalendarView";
 
-const queryString = require('query-string');
-
 class MainContainer extends Component {
     render() {
-
-        const params = queryString.parse(this.props.location.search);
 
         return (
             <div className={"main-container"}>
                 <Switch>
                     <Route path="/workflow">
-                        <WorkflowView/>
+                        <WorkflowView accountId={this.props.accountId}/>
                     </Route>
                     <Route path="/calendar">
-                        <CalendarView/>
+                        <CalendarView accountId={this.props.accountId}/>
                     </Route>
                     <Route path="/">
-                        <DashboardView/>
+                        <DashboardView accountId={this.props.accountId}/>
                     </Route>
                 </Switch>
             </div>

@@ -40,14 +40,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getClients() {
-        List<UserJPA> clients = userDAO.getAllClients();
+    public List<UserDTO> getClients(Long accountId) {
+        List<UserJPA> clients = userDAO.getAllClients(accountId);
         return ObjectMapperUtils.mapAll(clients, UserDTO.class);
     }
 
     @Override
-    public List<UserDTO> getTechnicians() {
-        List<UserJPA> technicians = userDAO.getAllTechnicians();
+    public List<UserDTO> getTechnicians(Long accountId) {
+        List<UserJPA> technicians = userDAO.getAllTechnicians(accountId);
         return ObjectMapperUtils.mapAll(technicians, UserDTO.class);
     }
 

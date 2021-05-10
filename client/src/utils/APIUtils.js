@@ -45,13 +45,6 @@ export function createUpdateInventoryItem(inventoryItemDTO) {
     });
 }
 
-export function getAllClients() {
-    return request({
-        url: API_BASE_URL + "/user/get-all-clients",
-        method: 'GET'
-    });
-}
-
 export function getAllClientVehicles(clientId) {
     return request({
         url: API_BASE_URL + "/vehicle/get-client-vehicles/" + clientId,
@@ -59,16 +52,23 @@ export function getAllClientVehicles(clientId) {
     });
 }
 
-export function getAllTechnicians() {
+export function getAllClients(accountId) {
     return request({
-        url: API_BASE_URL + "/user/get-all-technicians",
+        url: API_BASE_URL + "/user/get-all-clients/" + accountId,
         method: 'GET'
     });
 }
 
-export function getAllJobs() {
+export function getAllTechnicians(accountId) {
     return request({
-        url: API_BASE_URL + "/job/get-all",
+        url: API_BASE_URL + "/user/get-all-technicians/" + accountId,
+        method: 'GET'
+    });
+}
+
+export function getAllJobs(accountId) {
+    return request({
+        url: API_BASE_URL + "/job/get-all/" + accountId,
         method: 'GET'
     });
 }
@@ -111,9 +111,9 @@ export function changeJobStatus(jobId, newStatus) {
     });
 }
 
-export function getSummary() {
+export function getSummary(accountId) {
     return request({
-        url: API_BASE_URL + "/summary/get",
+        url: API_BASE_URL + "/summary/get/" + accountId,
         method: 'GET'
     });
 }

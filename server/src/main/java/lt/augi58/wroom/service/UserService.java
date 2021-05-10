@@ -8,9 +8,9 @@ public interface UserService {
 
     UserDTO createUpdate(UserDTO userDTO);
 
-    List<UserDTO> getClients();
+    List<UserDTO> getClients(Long account);
 
-    List<UserDTO> getTechnicians();
+    List<UserDTO> getTechnicians(Long accountId);
 
     UserDTO addClient(UserDTO client);
 

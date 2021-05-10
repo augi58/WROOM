@@ -18,16 +18,15 @@ public class JobController {
     @Autowired
     JobService jobService;
 
-    @GetMapping(path = "/get-all", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JobDTO> getAllJobs() {
-        return jobService.getAll();
+    @GetMapping(path = "/get-all/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<JobDTO> getAllJobs(@PathVariable Long accountId) {
+        return jobService.getAll(accountId);
     }
 
-    @GetMapping(path = "/get-active", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JobDTO> getActiveJobs() {
-        return jobService.getActive();
+    @GetMapping(path = "/get-active/{accountId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<JobDTO> getActiveJobs(@PathVariable Long accountId) {
+        return jobService.getActive(accountId);
     }
-
 
     @PostMapping(path = "/create-update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDTO> modify(@RequestBody JobDTO job) {

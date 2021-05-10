@@ -12,9 +12,9 @@ public interface JobService {
 
     JobDTO getById(Long id);
 
-    List<JobDTO> getAll();
+    List<JobDTO> getAll(Long accountId);
 
-    List<JobDTO> getActive();
+    List<JobDTO> getActive(Long accountId);
 
     JobDTO createUpdate(JobDTO job);
 

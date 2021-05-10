@@ -36,7 +36,7 @@ public class JobServiceTest extends BaseTest {
 
     @Test
     public void getActiveJobs() {
-        List<JobDTO> probablyActiveJobs = jobService.getActive();
+        List<JobDTO> probablyActiveJobs = jobService.getActive(1L);
         probablyActiveJobs = probablyActiveJobs.stream().filter(job -> {
             JobStatus.INVOICE.getDeclaringClass();
             return false;

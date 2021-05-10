@@ -15,7 +15,7 @@ export default class DoorToDoorStatus extends Component {
     }
 
     componentDidMount(): void {
-        getSummary().then(summary => {
+        getSummary(this.props.accountId).then(summary => {
             this.setState({summary})
         })
     }

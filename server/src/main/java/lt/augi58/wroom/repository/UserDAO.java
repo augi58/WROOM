@@ -10,26 +10,29 @@ import java.util.List;
 @Repository
 public class UserDAO extends AbstractHibernateJpaDAO<Long, UserJPA> {
 
-    public List<UserJPA> getAllClients() {
+    public List<UserJPA> getAllClients(Long accountId) {
         TypedQuery<UserJPA> query
                 = getEntityManager().createQuery(
                 "select a "
                         + " from " + entityClass.getName() + " a "
-                        + " where a.role like :role",
+                        + " where a.role like :role"
+                        + " and a.account.id like :accountId",
                 UserJPA.class);
         query.setParameter("role", Role.CLIENT);
+        query.setParameter("accountId", accountId);
         return query.getResultList();
     }
 
-    public List<UserJPA> getAllTechnicians() {
+    public List<UserJPA> getAllTechnicians(Long accountId) {
         TypedQuery<UserJPA> query
                 = getEntityManager().createQuery(
                 "select a "
                         + " from " + entityClass.getName() + " a "
-                        + " where a.role like :role",
+                        + " where a.role like :role"
+                + " and a.account.id like :accountId",
                 UserJPA.class);
         query.setParameter("role", Role.TECHNICIAN);
+        query.setParameter("accountId", accountId);
         return query.getResultList();
     }
-
 }
