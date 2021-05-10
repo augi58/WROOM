@@ -32,7 +32,7 @@ public class JobJPA {
     private String name;
     @Column
     private JobStatus status;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<InventoryItemJPA> parts;
     @Column
     private Double labor;

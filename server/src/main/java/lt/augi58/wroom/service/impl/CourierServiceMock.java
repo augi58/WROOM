@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 public class CourierServiceMock implements CourierService {
 
     @Override
-    public void createDelivery(String addressFrom, String addressTo) {
-
+    public boolean createDelivery(String addressFrom, String addressTo) {
+        // MOCK
+        // TODO validate order
+        if (addressFrom.length() != 0 && addressTo.length() != 0) {
+            return true;
+        } else return false;
     }
 
     @Override

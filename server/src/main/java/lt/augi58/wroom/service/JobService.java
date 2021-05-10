@@ -1,11 +1,16 @@
 package lt.augi58.wroom.service;
 
 import lt.augi58.wroom.domain.JobDTO;
+import lt.augi58.wroom.domain.ResponseDTO;
 import lt.augi58.wroom.enums.JobStatus;
 
 import java.util.List;
 
 public interface JobService {
+
+    JobDTO getByJobName(String jobName);
+
+    JobDTO getById(Long id);
 
     List<JobDTO> getAll();
 
@@ -15,6 +20,6 @@ public interface JobService {
 
     boolean changeStatus(Long jobId, JobStatus newStatus);
 
-    void createDoorToDoorPickup(JobDTO jobDTO);
+    ResponseDTO createDoorToDoorPickup(JobDTO jobDTO);
 
 }

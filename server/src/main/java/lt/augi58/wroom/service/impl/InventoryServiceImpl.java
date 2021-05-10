@@ -9,6 +9,7 @@ import lt.augi58.wroom.repository.WorkshopDAO;
 import lt.augi58.wroom.service.InventoryService;
 import lt.augi58.wroom.service.VehicleService;
 import lt.augi58.wroom.utils.ObjectMapperUtils;
+import lt.augi58.wroom.utils.PartIdentifierUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class InventoryServiceImpl implements InventoryService {
         List<InventoryItemDTO> parts = getAll();
         List<InventoryItemDTO> suitableParts = new ArrayList<>();
         VehicleDTO vehicle = vehicleService.get(vehicleId);
-        String vehicleIdentifier = vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel();
+        String vehicleIdentifier = PartIdentifierUtils.partIdentifierConstructor(vehicle);
         parts.forEach(part -> {
             if (is_suitable.test(part, vehicleIdentifier)) {
                 suitableParts.add(part);

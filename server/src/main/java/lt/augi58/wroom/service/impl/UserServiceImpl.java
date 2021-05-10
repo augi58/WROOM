@@ -30,14 +30,13 @@ public class UserServiceImpl implements UserService {
             ObjectMapperUtils.map(userDTO, newUser);
             AccountJPA account = accountDAO.getById(userDTO.getAccountId());
             newUser.setAccount(account);
-            userDAO.create(newUser);
+            return ObjectMapperUtils.map(userDAO.create(newUser), UserDTO.class);
         } else {
             UserJPA original = userDAO.findById(userDTO.getId()).orElse(null);
             UserJPA updated = new UserJPA();
             ObjectMapperUtils.map(original, updated);
-            userDAO.merge(updated);
+            return ObjectMapperUtils.map(userDAO.merge(updated), UserDTO.class);
         }
-        return userDTO;
     }
 
     @Override

@@ -28,7 +28,7 @@ public class InventoryItemJPA {
     private Integer quantity;
     @Column
     private Double cost;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<JobJPA> jobs;
 
     public Long getId() {

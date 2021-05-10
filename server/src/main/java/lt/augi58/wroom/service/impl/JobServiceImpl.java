@@ -1,6 +1,7 @@
 package lt.augi58.wroom.service.impl;
 
 import lt.augi58.wroom.domain.JobDTO;
+import lt.augi58.wroom.domain.ResponseDTO;
 import lt.augi58.wroom.enums.JobStatus;
 import lt.augi58.wroom.model.JobJPA;
 import lt.augi58.wroom.model.UserJPA;
@@ -9,7 +10,6 @@ import lt.augi58.wroom.repository.InventoryItemDAO;
 import lt.augi58.wroom.repository.JobDAO;
 import lt.augi58.wroom.repository.UserDAO;
 import lt.augi58.wroom.repository.VehicleDAO;
-import lt.augi58.wroom.service.AccountService;
 import lt.augi58.wroom.service.CourierService;
 import lt.augi58.wroom.service.JobService;
 import lt.augi58.wroom.service.WorkshopService;
@@ -38,6 +38,18 @@ public class JobServiceImpl implements JobService {
     CourierService courierService;
     @Autowired
     WorkshopService workshopService;
+
+    @Override
+    public JobDTO getByJobName(String jobName) {
+        if (jobDAO.getByName(jobName).isPresent()) {
+            return jobDAO.getByName(jobName).get().createDTO();
+        } else return null;
+    }
+
+    @Override
+    public JobDTO getById(Long id) {
+        return jobDAO.findById(id).get().createDTO();
+    }
 
     @Override
     public List<JobDTO> getAll() {
@@ -103,10 +115,14 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public void createDoorToDoorPickup(JobDTO jobDTO) {
+    public ResponseDTO createDoorToDoorPickup(JobDTO jobDTO) {
         String addressFrom = jobDTO.getClient().getAddress();
         String addressTo = workshopService.get(1L).getAddress();
-        courierService.createDelivery(addressFrom, addressTo);
+        boolean success = courierService.createDelivery(addressFrom, addressTo);
+        if (success) {
+            return new ResponseDTO(true, "Order is approved");
+        } else {
+            return new ResponseDTO(false, "Order is declined");
+        }
     }
-
 }
