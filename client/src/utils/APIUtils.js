@@ -73,9 +73,9 @@ export function getAllJobs(accountId) {
     });
 }
 
-export function getActiveJobs() {
+export function getActiveJobs(accountId) {
     return request({
-        url: API_BASE_URL + "/job/get-active",
+        url: API_BASE_URL + "/job/get-active/" + accountId,
         method: 'GET'
     });
 }

@@ -56,7 +56,7 @@ export default class CalendarView extends Component {
 
 
     getJobs = () => {
-        getActiveJobs().then(jobs => {
+        getActiveJobs(this.props.accountId).then(jobs => {
             this.setState({jobs})
         });
     };
